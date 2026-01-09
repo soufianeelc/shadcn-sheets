@@ -13,50 +13,50 @@
   
   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/soufianeelc)
   
-  [Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [Contributing](#-contributing)
+  [Features](#features) • [Demo](#demo) • [Installation](#installation) • [Usage](#usage) • [Architecture](#architecture) • [Contributing](#contributing)
   
 </div>
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Functionality
 
-- 📊 **Import & Export** - Support for CSV and XLSX file formats
-- 🧮 **Formula Engine** - Built-in spreadsheet formulas (SUM, AVERAGE, COUNT, MIN, MAX, IF, CONCAT)
-- 💾 **Local Storage** - All data stored in IndexedDB for offline access
-- ⚡ **High Performance** - Virtualized rendering for millions of cells
-- 🎯 **Excel-like Experience** - Familiar keyboard shortcuts and cell navigation
+- **Import & Export** - Support for CSV and XLSX file formats
+- **Formula Engine** - Built-in spreadsheet formulas (SUM, AVERAGE, COUNT, MIN, MAX, IF, CONCAT)
+- **Local Storage** - All data stored in IndexedDB for offline access
+- **High Performance** - Virtualized rendering for millions of cells
+- **Excel-like Experience** - Familiar keyboard shortcuts and cell navigation
 
 ### Advanced Features
 
-- 🔄 **Undo/Redo** - Complete operation history with patch-based system
-- 🎨 **Modern UI** - Built with shadcn/ui and Tailwind CSS
-- 📱 **Responsive Design** - Works seamlessly on desktop and mobile
-- 🎭 **Multiple Sheets** - Tab-based interface for working with multiple spreadsheets
-- 🚀 **Web Workers** - Background processing for file imports and data operations
-- 📏 **Column Resizing** - Drag to resize columns
-- ➕ **Row/Column Management** - Insert and delete rows/columns with ease
-- 🎨 **Cell Formatting** - Support for different data types (numbers, text, booleans, formulas)
+- **Undo/Redo** - Complete operation history with patch-based system
+- **Modern UI** - Built with shadcn/ui and Tailwind CSS
+- **Responsive Design** - Works seamlessly on desktop and mobile
+- **Multiple Sheets** - Tab-based interface for working with multiple spreadsheets
+- **Web Workers** - Background processing for file imports and data operations
+- **Column Resizing** - Drag to resize columns
+- **Row/Column Management** - Insert and delete rows/columns with ease
+- **Cell Formatting** - Support for different data types (numbers, text, booleans, formulas)
 
 ### Developer Experience
 
-- 🔷 **TypeScript** - Fully typed codebase
-- 🎨 **Component Library** - Built with Radix UI primitives
-- 📦 **State Management** - Zustand for predictable state updates
-- 🧪 **Clean Architecture** - Modular and maintainable code structure
-- ⚡ **React 19** - Latest React features including the React Compiler
+- **TypeScript** - Fully typed codebase
+- **Component Library** - Built with Radix UI primitives
+- **State Management** - Zustand for predictable state updates
+- **Clean Architecture** - Modular and maintainable code structure
+- **React 19** - Latest React features including the React Compiler
 
 ---
 
-## 🎯 Demo
+## Demo
 
-![Shadcn Sheets Screenshot](https://via.placeholder.com/800x450.png?text=Add+Screenshot+Here)
+![Shadcn Sheets Screenshot](/public/preview.jpeg)
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -91,7 +91,7 @@ pnpm start
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### Importing Files
 
@@ -128,7 +128,7 @@ Click the **Export** button to download your spreadsheet as a CSV file.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Tech Stack
 
@@ -183,7 +183,7 @@ Only visible cells are rendered using TanStack Virtual, allowing smooth scrollin
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Available Scripts
 
@@ -224,7 +224,7 @@ function evaluateMYFUNC(
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -245,7 +245,7 @@ Found a bug or have a feature request? Please [open an issue](https://github.com
 
 ---
 
-## 📝 Roadmap
+## Roadmap
 
 - [ ] Copy/Paste functionality
 - [ ] Cell styling (colors, fonts, alignment)
@@ -260,13 +260,13 @@ Found a bug or have a feature request? Please [open an issue](https://github.com
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [shadcn](https://twitter.com/shadcn) for the amazing UI component library
 - [Vercel](https://vercel.com/) for Next.js
@@ -275,16 +275,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 💖 Support
+## Support
 
 If you find this project useful, please consider:
 
-- Giving it a ⭐️ on GitHub
-- [Buying me a coffee](https://buymeacoffee.com/soufianeelc) ☕
+- Giving it a star on GitHub
+- [Buying me a coffee](https://buymeacoffee.com/soufianeelc)
 
 ---
 
-## 📬 Contact
+## Contact
 
 Questions or feedback? Feel free to:
 
@@ -296,8 +296,8 @@ Questions or feedback? Feel free to:
 
 <div align="left">
   
-  **If you find this project useful, please consider giving it a ⭐️**
+  **If you find this project useful, please consider giving it a star**
   
-  Made with ❤️ by the open-source community
+  Made with love by the open-source community
   
 </div>
