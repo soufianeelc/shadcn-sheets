@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/_ui/scroll-area";
 import { EmptyState } from "@/components/empty-state";
-import { InlineDropzone } from "@/components/sheet";
+import { ImportDropzone } from "@/components/sheet";
 import { SheetFilesList } from "@/components/sheet-files-list";
 import type { SheetRecord } from "@/lib/db/schema";
 
@@ -23,7 +23,7 @@ export function HomeContent({
     <ScrollArea className="flex-1">
       <div className="p-6">
         <div className="mb-8">
-          <InlineDropzone onFileSelect={onFileSelect} />
+          <ImportDropzone onFileSelect={onFileSelect} />
         </div>
 
         <SheetFilesList

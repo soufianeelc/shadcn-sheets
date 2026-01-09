@@ -1,7 +1,6 @@
 export { ColumnHeader, ColumnHeaders } from "./column-header";
 export { FileCard } from "./file-card";
 export { ImportDropzone } from "./import-dropzone";
-export { InlineDropzone } from "./inline-dropzone";
 export { RowHeader } from "./row-header";
 export { SheetCell } from "./sheet-cell";
 export { SheetContainer } from "./sheet-container";

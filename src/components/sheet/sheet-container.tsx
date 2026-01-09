@@ -10,162 +10,162 @@ import { RowHeader } from "./row-header";
 import { SheetRow } from "./sheet-row";
 
 export function SheetContainer() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [scrollLeft, setScrollLeft] = useState(0);
 
-  const {
-    sheetMeta,
-    viewportData,
-    activeCell,
-    editingCell,
-    editValue,
-    loadViewport,
-    setActiveCell,
-    startEditing,
-    cancelEditing,
-    setEditValue,
-    commitEdit,
-    resizeColumn,
-    insertColumn,
-    deleteColumn,
-    insertRow,
-    deleteRow,
-    updateCell,
-  } = useSheetStore();
+	const {
+		sheetMeta,
+		viewportData,
+		activeCell,
+		editingCell,
+		editValue,
+		loadViewport,
+		setActiveCell,
+		startEditing,
+		cancelEditing,
+		setEditValue,
+		commitEdit,
+		resizeColumn,
+		insertColumn,
+		deleteColumn,
+		insertRow,
+		deleteRow,
+		updateCell,
+	} = useSheetStore();
 
-  const rowVirtualizer = useVirtualizer({
-    count: sheetMeta?.rowCount ?? 0,
-    getScrollElement: () => containerRef.current,
-    estimateSize: () => DEFAULT_ROW_HEIGHT,
-    overscan: 10,
-  });
+	const rowVirtualizer = useVirtualizer({
+		count: sheetMeta?.rowCount ?? 0,
+		getScrollElement: () => containerRef.current,
+		estimateSize: () => DEFAULT_ROW_HEIGHT,
+		overscan: 10,
+	});
 
-  useEffect(() => {
-    const virtualItems = rowVirtualizer.getVirtualItems();
-    if (virtualItems.length === 0) return;
+	// Get the virtual items for rendering - this array reference changes when scroll position changes
+	const virtualItems = rowVirtualizer.getVirtualItems();
 
-    const startRow = virtualItems[0].index;
-    const endRow = virtualItems[virtualItems.length - 1].index;
+	// Load viewport data when visible range changes
+	useEffect(() => {
+		if (virtualItems.length === 0) return;
 
-    loadViewport(startRow, endRow);
-  }, [loadViewport, rowVirtualizer.getVirtualItems]);
+		const startRow = virtualItems[0].index;
+		const endRow = virtualItems[virtualItems.length - 1].index;
 
-  useSheetKeyboard({
-    activeCell,
-    editingCell,
-    sheetMeta,
-    setActiveCell,
-    startEditing,
-    setEditValue,
-    updateCell,
-  });
+		loadViewport(startRow, endRow);
+	}, [loadViewport, virtualItems]);
 
-  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
-    setScrollLeft(e.currentTarget.scrollLeft);
-  }, []);
+	useSheetKeyboard({
+		activeCell,
+		editingCell,
+		sheetMeta,
+		setActiveCell,
+		startEditing,
+		setEditValue,
+		updateCell,
+	});
 
-  const handleCellSelect = useCallback(
-    (row: number, col: string) => {
-      setActiveCell({ row, col });
-    },
-    [setActiveCell],
-  );
+	const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+		setScrollLeft(e.currentTarget.scrollLeft);
+	}, []);
 
-  const handleCellDoubleClick = useCallback(() => {
-    startEditing();
-  }, [startEditing]);
+	const handleCellSelect = useCallback(
+		(row: number, col: string) => {
+			setActiveCell({ row, col });
+		},
+		[setActiveCell]
+	);
 
-  const handleInsertRowAbove = useCallback(
-    (rowIndex: number) => {
-      insertRow(rowIndex);
-    },
-    [insertRow],
-  );
+	const handleCellDoubleClick = useCallback(() => {
+		startEditing();
+	}, [startEditing]);
 
-  const handleInsertRowBelow = useCallback(
-    (rowIndex: number) => {
-      insertRow(rowIndex + 1);
-    },
-    [insertRow],
-  );
+	const handleInsertRowAbove = useCallback(
+		(rowIndex: number) => {
+			insertRow(rowIndex);
+		},
+		[insertRow]
+	);
 
-  const handleDeleteRow = useCallback(
-    (rowIndex: number) => {
-      deleteRow(rowIndex);
-    },
-    [deleteRow],
-  );
+	const handleInsertRowBelow = useCallback(
+		(rowIndex: number) => {
+			insertRow(rowIndex + 1);
+		},
+		[insertRow]
+	);
 
-  const totalWidth =
-    sheetMeta?.columns.reduce((sum, col) => sum + col.width, 0) ?? 0;
+	const handleDeleteRow = useCallback(
+		(rowIndex: number) => {
+			deleteRow(rowIndex);
+		},
+		[deleteRow]
+	);
 
-  if (!sheetMeta) {
-    return (
-      <div className="flex items-center justify-center h-full text-muted-foreground">
-        No sheet loaded
-      </div>
-    );
-  }
+	const totalWidth =
+		sheetMeta?.columns.reduce((sum, col) => sum + col.width, 0) ?? 0;
 
-  return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <ColumnHeaders
-        columns={sheetMeta.columns}
-        onResize={resizeColumn}
-        onInsertColumn={insertColumn}
-        onDeleteColumn={deleteColumn}
-        scrollLeft={scrollLeft}
-      />
+	if (!sheetMeta) {
+		return (
+			<div className='flex items-center justify-center h-full text-muted-foreground'>
+				No sheet loaded
+			</div>
+		);
+	}
 
-      <div
-        ref={containerRef}
-        className="flex-1 overflow-auto relative"
-        onScroll={handleScroll}
-      >
-        <div
-          className="relative"
-          style={{
-            height: rowVirtualizer.getTotalSize(),
-            width: totalWidth + 48,
-          }}
-        >
-          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-            const rowData = viewportData.get(virtualRow.index);
+	return (
+		<div className='flex flex-col h-full overflow-hidden'>
+			<ColumnHeaders
+				columns={sheetMeta.columns}
+				onResize={resizeColumn}
+				onInsertColumn={insertColumn}
+				onDeleteColumn={deleteColumn}
+				scrollLeft={scrollLeft}
+			/>
 
-            return (
-              <div
-                key={virtualRow.key}
-                className="absolute top-0 left-0 flex"
-                style={{
-                  transform: `translateY(${virtualRow.start}px)`,
-                  height: virtualRow.size,
-                }}
-              >
-                <RowHeader
-                  rowIndex={virtualRow.index}
-                  onInsertAbove={handleInsertRowAbove}
-                  onInsertBelow={handleInsertRowBelow}
-                  onDelete={handleDeleteRow}
-                />
+			<div
+				ref={containerRef}
+				className='flex-1 overflow-auto relative'
+				onScroll={handleScroll}>
+				<div
+					className='relative'
+					style={{
+						height: rowVirtualizer.getTotalSize(),
+						width: totalWidth + 48,
+					}}>
+					{virtualItems.map((virtualRow) => {
+						const rowData = viewportData.get(virtualRow.index);
 
-                <SheetRow
-                  rowIndex={virtualRow.index}
-                  rowData={rowData}
-                  columns={sheetMeta.columns}
-                  activeCell={activeCell}
-                  editingCell={editingCell}
-                  editValue={editValue}
-                  onCellSelect={handleCellSelect}
-                  onCellDoubleClick={handleCellDoubleClick}
-                  onEditChange={setEditValue}
-                  onCommit={commitEdit}
-                  onCancel={cancelEditing}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+						return (
+							<div
+								key={virtualRow.key}
+								className='absolute top-0 left-0 flex'
+								style={{
+									transform: `translateY(${virtualRow.start}px)`,
+									height: virtualRow.size,
+								}}>
+								<RowHeader
+									rowIndex={virtualRow.index}
+									onInsertAbove={handleInsertRowAbove}
+									onInsertBelow={handleInsertRowBelow}
+									onDelete={handleDeleteRow}
+								/>
+
+								<SheetRow
+									rowIndex={virtualRow.index}
+									rowData={rowData}
+									columns={sheetMeta.columns}
+									activeCell={activeCell}
+									editingCell={editingCell}
+									editValue={editValue}
+									onCellSelect={handleCellSelect}
+									onCellDoubleClick={handleCellDoubleClick}
+									onEditChange={setEditValue}
+									onCommit={commitEdit}
+									onCancel={cancelEditing}
+								/>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		</div>
+	);
 }
